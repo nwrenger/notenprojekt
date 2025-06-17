@@ -24,8 +24,8 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS "Note" (
 
 cursor.execute("""CREATE TABLE IF NOT EXISTS "Zeitraum" (
 	"id"	INTEGER NOT NULL,
-	"quartal" INTEGER NOT NULL, 
-	"stufe" INTEGER NOT NULL, 
+	"quartal" INTEGER NOT NULL,
+	"stufe" INTEGER NOT NULL,
 	PRIMARY KEY("id" AUTOINCREMENT)
 )""")
 
@@ -39,7 +39,7 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS "ZeitraumHatNote" (
 eel.init('web')
 
 def dictionarize(cursor: sqlite3.Cursor):
-	return [dict(row) for row in cursor.fetchall()]
+    return [dict(row) for row in cursor.fetchall()]
 
 @eel.expose
 def get_zeitraum():
@@ -53,7 +53,7 @@ def get_fächer():
 
 @eel.expose
 def get_fachnoten_by_zeitraum(id: int):
-	cursor.execute("""SELECT * 
+	cursor.execute("""SELECT *
 FROM ZeitraumHatNote
 JOIN Note ON Note.id = ZeitraumHatNote.note_id
 JOIN Fach ON Fach.id = ZeitraumHatNote.fach_id
@@ -62,7 +62,7 @@ WHERE ZeitraumHatNote.zeitraum_id = (?)
 	return dictionarize(cursor)
 
 @eel.expose
-def add_zeitraum(quartal, stufe): 
+def add_zeitraum(quartal, stufe):
 	cursor.execute("INSERT INTO Zeitraum (quartal, stufe) VALUES (?, ?)", (quartal, stufe))
 	conn.commit()
 

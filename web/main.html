@@ -1,60 +1,72 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Notenmanager</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='css/stylesheet.css'>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Notenmanager</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            media="screen"
+            href="css/stylesheet.css"
+        />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto&family=Rubik:ital,wght@0,300..900;1,300..900&family=Sedan&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto&family=Rubik:ital,wght@0,300..900;1,300..900&family=Sedan&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap"
+            rel="stylesheet"
+        />
 
-    <script type="text/javascript" src="/eel.js"></script>
-    <script src='main.js'></script>
-</head>
-<body>
-    <h1 class="title center" >Notenmanager</h1>
-    <p class="center">VON [NAME]</p>
+        <script type="text/javascript" src="/eel.js"></script>
+        <script type="text/javascript" src="main.js"></script>
+    </head>
+    <body>
+        <h1 class="title center">Notenmanager</h1>
+        <p class="center">VON [NAME]</p>
 
-    
-    <div class="center">
-        <div>
-            <select id="subjectInput">
-                <option value="">Fach</option>
-                <option value="Mathe">Mathe</option>
-                <option value="Deutsch">Deutsch</option>
-                <option value="Englisch">Englisch</option>
-                <option value="Andere"></option>
-            </select>
+        <div class="center">
+            <div>
+                <select id="subjectInput">
+                    <option value="">Fach</option>
+                    <option value="Mathe">Mathe</option>
+                    <option value="Deutsch">Deutsch</option>
+                    <option value="Englisch">Englisch</option>
+                    <option value="Andere"></option>
+                </select>
 
-            <input id="customSubjectInput" type="text" placeholder="Fach hinzufügen" style="display:none">
-                
-            <select id="gradeInput">
-                <option value="">Note</option>
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-            </select>
+                <input
+                    id="customSubjectInput"
+                    type="text"
+                    placeholder="Fach hinzufügen"
+                    style="display: none"
+                />
+
+                <select id="gradeInput">
+                    <option value="">Note</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                </select>
+            </div>
+            <div>
+                <br />
+                <button onclick="add_note()">Hinzufügen</button>
+            </div>
         </div>
-        <div>
-            <br>
-            <button onclick="add_note()">Hinzufügen</button>
-        </div>
-    </div>
-</body>
+    </body>
 </html>
