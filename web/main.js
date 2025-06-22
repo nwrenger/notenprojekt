@@ -8,7 +8,7 @@ const state = {
 const listeners = {};
 
 /**
- * Use to subscribe changes a prop of to the html.
+ * Use to subscribe changes of a prop to the html.
  * @param {string} prop - The prop name.
  * @param {(value) => void} fn - The function called when the value gets updated. The so called update function.
  */
