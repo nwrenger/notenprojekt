@@ -3,7 +3,7 @@ const state = {
 	zeiträume: [],
 	fächer: [],
 	noten: [],
-	selectedZeitraum: null,
+	selectedTab: null,
 };
 const listeners = {};
 
@@ -31,13 +31,70 @@ function setState(updates) {
 // Use to load initially and reload any data
 async function loadData() {
 	console.log("Running init...");
-	console.log(await eel.get_zeitraum()());
+	let zeiträume = await eel.get_zeitraum()();
 	let fächer = await eel.get_fächer()();
-	setState({ fächer: fächer });
+	setState({ selectedTab: 1, zeiträume: zeiträume, fächer: fächer });
 }
 loadData();
 
-subscribe("zeiträume", (values) => {});
+subscribe("selectedTab", (id) => {
+	if (id) {
+		let node_id = typeof id == "number" ? `period-${id}` : "tab-edit";
+		let el = document.getElementById("tabs");
+		let newly_selected = document.getElementById(node_id);
+		if (el && newly_selected) {
+			for (const child of el.children) {
+				child.classList.remove("active");
+			}
+			newly_selected.classList.add("active");
+		}
+		let grades_view = document.getElementById("grades-view");
+		let edit_view = document.getElementById("edit-view");
+		if (grades_view && edit_view) {
+			if (typeof id == "number") {
+				grades_view.classList.remove("hidden");
+				edit_view.classList.add("hidden");
+				// TODO
+			} else if (id == "edit") {
+				grades_view.classList.add("hidden");
+				edit_view.classList.remove("hidden");
+				// TODO
+			}
+		}
+	}
+});
+
+subscribe("zeiträume", (values) => {
+	let el = document.getElementById("tabs");
+	if (el) {
+		// Delete all tabs, not the "Bearbeiten" tab
+		let children = Array.from(el.children);
+		for (const child of children) {
+			console.log(child);
+			if (child.id != "tab-edit") {
+				el.removeChild(child);
+			}
+		}
+
+		// Add the updated zeiträume
+		for ({ id, quartal, stufe } of values) {
+			let node = document.createElement("div");
+			node.classList.add("tab");
+			node.addEventListener(
+				"click",
+				((currentId) => {
+					return () => {
+						setState({ selectedTab: currentId });
+					};
+				})(id),
+			);
+
+			node.id = `period-${id}`;
+			node.textContent = `Stufe ${stufe}.${quartal}`;
+			el.prepend(node);
+		}
+	}
+});
 
 subscribe("fächer", (values) => {
 	let el = document.getElementById("fach-input");

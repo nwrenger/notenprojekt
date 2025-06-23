@@ -25,216 +25,225 @@
     <body>
         <h1 class="title center">Notenmanager</h1>
 
-        <div class="tabs">
+        <div id="tabs" class="tabs">
             <div class="tab active">Zeitraum 1</div>
             <div class="tab">Zeitraum 2</div>
             <div class="tab">Zeitraum 3</div>
             <!-- Hier sollten die Zeiträume und Fächer bearbeitbar sein, TODO: hide grades view, show the associated edit view -->
-            <div class="tab">Bearbeiten</div>
-        </div>
-
-        <div class="grades-list">
-            <div class="grade-item">
-                <span class="subject">Mathematik</span>
-                <div class="actions">
-                    <span class="grade">12.5</span>
-                    <div class="input-group">
-                        <button class="edit icon" title="Bearbeiten">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            >
-                                <path d="M12 20h9" />
-                                <path
-                                    d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"
-                                />
-                            </svg>
-                        </button>
-                        <button class="delete icon" title="Löschen">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            >
-                                <polyline points="3 6 5 6 21 6" />
-                                <path
-                                    d="M19 6l-1 14a2 2 0 0 1 -2 2H8a2 2 0 0 1 -2-2L5 6"
-                                />
-                                <path d="M10 11v6" />
-                                <path d="M14 11v6" />
-                                <path
-                                    d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"
-                                />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="grade-item">
-                <span class="subject">Englisch</span>
-                <div class="actions">
-                    <span class="grade">10.2</span>
-                    <div class="input-group">
-                        <button class="edit icon" title="Bearbeiten">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            >
-                                <path d="M12 20h9" />
-                                <path
-                                    d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"
-                                />
-                            </svg>
-                        </button>
-                        <button class="delete icon" title="Löschen">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            >
-                                <polyline points="3 6 5 6 21 6" />
-                                <path
-                                    d="M19 6l-1 14a2 2 0 0 1 -2 2H8a2 2 0 0 1 -2-2L5 6"
-                                />
-                                <path d="M10 11v6" />
-                                <path d="M14 11v6" />
-                                <path
-                                    d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"
-                                />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="grade-item">
-                <span class="subject">Biologie</span>
-                <div class="actions">
-                    <span class="grade">13.7</span>
-                    <div class="input-group">
-                        <button class="edit icon" title="Bearbeiten">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            >
-                                <path d="M12 20h9" />
-                                <path
-                                    d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"
-                                />
-                            </svg>
-                        </button>
-                        <button class="delete icon" title="Löschen">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            >
-                                <polyline points="3 6 5 6 21 6" />
-                                <path
-                                    d="M19 6l-1 14a2 2 0 0 1 -2 2H8a2 2 0 0 1 -2-2L5 6"
-                                />
-                                <path d="M10 11v6" />
-                                <path d="M14 11v6" />
-                                <path
-                                    d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"
-                                />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
+            <div
+                class="tab"
+                id="tab-edit"
+                onclick='setState({selectedTab: "edit"})'
+            >
+                Bearbeiten
             </div>
         </div>
 
-        <div class="input-group">
-            <select id="fach-input">
-                <option value="selector" selected>Fach auswählen</option>
-            </select>
+        <div id="grades-view">
+            <div id="grades-list" class="grades-list">
+                <div class="grade-item">
+                    <span class="subject">Mathematik</span>
+                    <div class="actions">
+                        <span class="grade">12.5</span>
+                        <div class="input-group">
+                            <button class="edit icon" title="Bearbeiten">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="M12 20h9" />
+                                    <path
+                                        d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"
+                                    />
+                                </svg>
+                            </button>
+                            <button class="delete icon" title="Löschen">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <polyline points="3 6 5 6 21 6" />
+                                    <path
+                                        d="M19 6l-1 14a2 2 0 0 1 -2 2H8a2 2 0 0 1 -2-2L5 6"
+                                    />
+                                    <path d="M10 11v6" />
+                                    <path d="M14 11v6" />
+                                    <path
+                                        d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="grade-item">
+                    <span class="subject">Englisch</span>
+                    <div class="actions">
+                        <span class="grade">10.2</span>
+                        <div class="input-group">
+                            <button class="edit icon" title="Bearbeiten">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="M12 20h9" />
+                                    <path
+                                        d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"
+                                    />
+                                </svg>
+                            </button>
+                            <button class="delete icon" title="Löschen">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <polyline points="3 6 5 6 21 6" />
+                                    <path
+                                        d="M19 6l-1 14a2 2 0 0 1 -2 2H8a2 2 0 0 1 -2-2L5 6"
+                                    />
+                                    <path d="M10 11v6" />
+                                    <path d="M14 11v6" />
+                                    <path
+                                        d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="grade-item">
+                    <span class="subject">Biologie</span>
+                    <div class="actions">
+                        <span class="grade">13.7</span>
+                        <div class="input-group">
+                            <button class="edit icon" title="Bearbeiten">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="M12 20h9" />
+                                    <path
+                                        d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"
+                                    />
+                                </svg>
+                            </button>
+                            <button class="delete icon" title="Löschen">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <polyline points="3 6 5 6 21 6" />
+                                    <path
+                                        d="M19 6l-1 14a2 2 0 0 1 -2 2H8a2 2 0 0 1 -2-2L5 6"
+                                    />
+                                    <path d="M10 11v6" />
+                                    <path d="M14 11v6" />
+                                    <path
+                                        d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <select id="mündlich-note-input">
-                <option value="" selected>Mündliche Note</option>
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-            </select>
+            <div class="input-group">
+                <select id="fach-input">
+                    <option value="selector" selected>Fach auswählen</option>
+                </select>
 
-            <select id="schriftlich-note-input">
-                <option value="" selected>Schriftliche Note</option>
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-            </select>
+                <select id="mündlich-note-input">
+                    <option value="selector" selected>Mündliche Note</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                </select>
 
-            <select id="gewichtung-input">
-                <option value="" selected>Gewichtung</option>
-                <option value="0.5">50/50</option>
-                <option value="0.6">60/40</option>
-                <option value="0.7">70/30</option>
-            </select>
-            <button onclick="addNote()">Hinzufügen</button>
+                <select id="schriftlich-note-input">
+                    <option value="selector" selected>Schriftliche Note</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                </select>
+
+                <select id="gewichtung-input">
+                    <option value="selector" selected>Gewichtung</option>
+                    <option value="0.5">50/50</option>
+                    <option value="0.6">60/40</option>
+                    <option value="0.7">70/30</option>
+                </select>
+                <button onclick="addNote()">Hinzufügen</button>
+            </div>
+            <div id="edit-view" class="hidden"></div>
         </div>
     </body>
 </html>

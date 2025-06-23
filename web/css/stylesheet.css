@@ -5,6 +5,11 @@
     text-align: center;
 }
 
+/* hidden */
+.hidden {
+    display: none;
+}
+
 /* base */
 body {
     font-family: Rubik;
@@ -176,13 +181,14 @@ select:focus {
     padding: 8px 16px;
     cursor: pointer;
     border-bottom: 2px solid transparent;
+    filter: brightness(75%);
 }
 .tab.active {
     border-color: #333;
-    font-weight: bold;
+    filter: none;
 }
 .tab:hover {
-    border-color: #333;
+    filter: none;
 }
 
 /* List Items */
