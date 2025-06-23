@@ -55,8 +55,142 @@ button:hover {
     background-color: rgb(50, 50, 50);
     color: rgb(230, 230, 230);
 }
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(100, 100, 100, 0.5);
+}
 button:active {
     background-color: rgb(40, 40, 40);
+}
+.icon {
+    padding: 8px;
+}
+.edit {
+    background-color: rgb(50, 80, 230);
+}
+.delete {
+    background-color: rgb(230, 50, 50);
+}
+
+/* Select fields */
+select {
+    font-family: Rubik;
+    font-style: bold;
+    color: rgb(30, 30, 30);
+    background-color: rgb(230, 230, 230);
+    padding: 10px 12px;
+    padding-right: 2rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='7'><path d='M0 0l5 7l5 -7z' fill='oklch(0.551 0.027 264.364)'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    transition:
+        background-color 0.2s,
+        color 0.2s;
+}
+select:hover {
+    background-color: rgb(50, 50, 50);
+    color: rgb(230, 230, 230);
+}
+select:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(100, 100, 100, 0.5);
+}
+
+/* Inline select + button groups */
+.input-group {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.input-group select,
+.input-group button {
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+.input-group *:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.input-group *:last-child {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-right: 0;
+}
+
+/* Grades */
+.grades-list {
+    width: 100%;
+    margin-top: 20px;
+}
+.grade-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s;
+}
+.grade-item:last-child {
+    border-bottom: none;
+}
+.grade-item:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+.subject {
+    font-size: 1rem;
+    font-weight: 500;
+}
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.grade {
+    display: inline-block;
+    min-width: 3em;
+    text-align: center;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background-color: rgb(230, 230, 230);
+    color: rgb(30, 30, 30);
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.tab {
+    padding: 8px 16px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+}
+.tab.active {
+    border-color: #333;
+    font-weight: bold;
+}
+.tab:hover {
+    border-color: #333;
+}
+
+/* List Items */
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+.list-item:last-child {
+    border-bottom: none;
 }
 
 /* Responsive */

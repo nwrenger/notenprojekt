@@ -37,32 +37,57 @@ async function loadData() {
 }
 loadData();
 
+subscribe("zeiträume", (values) => {});
+
 subscribe("fächer", (values) => {
-	let el = document.getElementById("subjectInput");
+	let el = document.getElementById("fach-input");
 	if (el) {
 		// Delete all options, not the "Fach" option
 		let children = Array.from(el.children);
 		for (const child of children) {
 			console.log(child);
-			if (child.value == child.textContent) {
+			if (child.value != "selector") {
 				el.removeChild(child);
 			}
 		}
 
 		// Add the updated fächer
-		for (const { id, name } of values) {
+		for (const { id, name, lehrer } of values) {
 			let option = document.createElement("option");
 			option.value = id;
-			option.textContent = name;
+			option.textContent = `${name} (${lehrer})`;
 			el.appendChild(option);
 		}
 	}
 });
 
 async function addNote() {
-	const subject = document.getElementById("subjectInput");
-	const grade = document.getElementById("gradeInput");
+	const fach = document.getElementById("fach-input");
+	const mündlich = document.getElementById("mündlich-note-input");
+	const schriftlich = document.getElementById("schriftlich-note-input");
+	const gewichtung = document.getElementById("gewichtung-input");
 
-	//await add_note(zeitraum_id, fach_id, schriftlich, muendlich, gewichtung)()
-	await eel.add_note(1, 1, 13, 15, 0.6)();
+	if (fach && mündlich && schriftlich && gewichtung) {
+		let fachValue = parseInt(fach.value);
+		let mündlichValue = parseInt(mündlich.value);
+		let schriftlichValue = parseInt(schriftlich.value);
+		let gewichtungValue = parseFloat(gewichtung.value);
+
+		if (fachValue && mündlichValue && schriftlichValue && gewichtungValue) {
+			await eel.add_note(
+				1,
+				fachValue,
+				schriftlichValue,
+				mündlichValue,
+				gewichtungValue,
+			)();
+
+			// reset
+			fach.selectedIndex = 0;
+			mündlich.selectedIndex = 0;
+			schriftlich.selectedIndex = 0;
+		} else {
+			alert("Alle Felder müssen ausgewählte felder haben!");
+		}
+	}
 }
