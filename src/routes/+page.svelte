@@ -56,7 +56,11 @@
 	>
 		{#snippet list()}
 			{#if future_zeitraeume}
-				{#await handle_promise(future_zeitraeume) then zeitraeume}
+				{#await handle_promise(future_zeitraeume) then zeitraeumeUnsortiert}
+					{@const zeitraeume = zeitraeumeUnsortiert.toSorted(
+						(a, b) =>
+							b.quartal + 2 * b.stufe - (a.quartal + 2 * a.stufe),
+					)}
 					{#each zeitraeume as zeitraum}
 						<Tabs.Control
 							value={zeitraum.id.toString()}
