@@ -1,15 +1,17 @@
-# notenprojekt
+# notenmanager
 
-Dies das Noten.
+SVELTTASTISCH!!!
 
-## Voraussetzungen
+## TODOS
 
-1. `eel` python package muss installiert sein
-2. `google chrome` muss installiert sein
-
-## Starten
-
-Einfach mit python:
-```sh
-python3 main.py
-```
+- [ ] This README
+  - [ ] About
+  - [ ] How to use/Showcase
+  - [ ] How to install
+  - [x] TODOS
+- [ ] Editing tab
+  - [ ] Editing "Zeiträume" (UI)
+  - [ ] Editing "Fächer" (UI)
+- [ ] Analysis tab
+  - [ ] UI
+  - [ ] Backend functions
