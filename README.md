@@ -1,4 +1,4 @@
-# Notenmanager
+# notenmanager
 
 SVELTTASTISCH!!!
 
