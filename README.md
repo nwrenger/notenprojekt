@@ -1,15 +1,9 @@
-# notenprojekt
+# Tauri + SvelteKit + TypeScript
 
-Dies das Noten.
+This template should help get you started developing with Tauri, SvelteKit and TypeScript in Vite.
 
-## Voraussetzungen
+## Recommended IDE Setup
 
-1. `eel` python package muss installiert sein
-2. `google chrome` muss installiert sein
+[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer).
 
-## Starten
-
-Einfach mit python:
-```sh
-python3 main.py
-```
+SVELTTASTISCH!!!
