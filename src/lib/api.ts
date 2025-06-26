@@ -13,8 +13,20 @@ namespace api {
 		lehrer: string;
 	}
 
-	export interface Note {
+	// Just for markup usage
+	interface _Note {
 		id: number;
+		muendlich: number | undefined;
+		schriftlich: number | undefined;
+		gewichtung: number;
+		insgesamt: number | undefined;
+	}
+
+	export interface Fachnote {
+		fach_id: number;
+		name: string;
+		lehrer: string;
+		note_id: number;
 		muendlich: number | undefined;
 		schriftlich: number | undefined;
 		gewichtung: number;
@@ -38,7 +50,7 @@ namespace api {
 	// Nils stinkt
 	export async function get_fachnoten_by_zeitraum(
 		zeitraum_id: number,
-	): Promise<[Fach, Note][]> {
+	): Promise<Fachnote[]> {
 		return await invoke("get_fachnoten_by_zeitraum", {
 			zeitraumId: zeitraum_id,
 		});

@@ -13,8 +13,7 @@
 	import { selected_tab } from "$lib/store";
 
 	let future_zeitraeume: undefined | Promise<api.Zeitraum[]> = $state();
-	let future_fachnoten: undefined | Promise<[api.Fach, api.Note][]> =
-		$state();
+	let future_fachnoten: undefined | Promise<api.Fachnote[]> = $state();
 	// make sure changes of $selected_tab reloads future_fachnoten
 	$effect(loadFachnoten);
 	let future_faecher: undefined | Promise<api.Fach[]> = $state();
@@ -108,7 +107,6 @@
 							>
 								<NoteModal
 									zeitraum_id={zeitraum.id}
-									note={undefined}
 									{faecher}
 									update={loadFachnoten}
 								/>
@@ -117,7 +115,7 @@
 								{#await handle_promise(future_fachnoten) then fachnotenUnsortiert}
 									{@const fachnoten =
 										fachnotenUnsortiert.toSorted(
-											([_, a], [_2, b]) =>
+											(a, b) =>
 												(b?.insgesamt || 0) -
 												(a?.insgesamt || 0),
 										)}
@@ -129,11 +127,10 @@
 												<span
 													class="font-bold flex items-center"
 												>
-													{fachnote[0].name}
+													{fachnote.name}
 													<span
 														class="ps-2 opacity-60 text-xs"
-														>{fachnote[0]
-															.lehrer}</span
+														>{fachnote.lehrer}</span
 													>
 												</span>
 												<div
@@ -142,8 +139,8 @@
 													<span
 														class="badge preset-filled-primary-500 h6 h-[39px]"
 													>
-														{#if fachnote[1].insgesamt}
-															{fachnote[1].insgesamt.toFixed(
+														{#if fachnote.insgesamt}
+															{fachnote.insgesamt.toFixed(
 																1,
 															)}
 														{:else}
@@ -158,9 +155,7 @@
 													>
 														<NoteModal
 															zeitraum_id={zeitraum.id}
-															fach_id={fachnote[0]
-																.id}
-															note={fachnote[1]}
+															{fachnote}
 															{faecher}
 															update={loadFachnoten}
 														/>
@@ -168,8 +163,7 @@
 															message="Wollen Sie die Note unwiederruflich löschen?"
 															del={() =>
 																api.delete_note(
-																	fachnote[1]
-																		.id,
+																	fachnote.note_id,
 																)}
 															update={loadFachnoten}
 														/>

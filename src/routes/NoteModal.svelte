@@ -7,22 +7,21 @@
 
 	interface Props {
 		zeitraum_id: number;
-		fach_id?: number;
-		note: api.Note | undefined;
+		fachnote?: api.Fachnote;
 		faecher: api.Fach[];
 		update: () => void;
 	}
 
-	let { zeitraum_id, fach_id, note, faecher, update }: Props = $props();
+	let { zeitraum_id, fachnote, faecher, update }: Props = $props();
 
 	let new_note = $state({
-		fach_id: fach_id,
-		schriftlich: note?.schriftlich,
-		muendlich: note?.muendlich,
-		gewichtung: note?.gewichtung,
+		fach_id: fachnote?.fach_id,
+		schriftlich: fachnote?.schriftlich,
+		muendlich: fachnote?.muendlich,
+		gewichtung: fachnote?.gewichtung,
 	});
 	$inspect(new_note);
-	let is_new = $derived(!note);
+	let is_new = $derived(!fachnote);
 	let valid = $derived(allDefined(new_note, ["schriftlich", "muendlich"]));
 	let openState = $state(false);
 
@@ -32,9 +31,9 @@
 		// reset
 		new_note = {
 			fach_id: undefined,
-			schriftlich: note?.schriftlich,
-			muendlich: note?.muendlich,
-			gewichtung: note?.gewichtung,
+			schriftlich: fachnote?.schriftlich,
+			muendlich: fachnote?.muendlich,
+			gewichtung: fachnote?.gewichtung,
 		};
 	}
 
@@ -50,10 +49,10 @@
 						new_note.gewichtung,
 					),
 				);
-			} else if (note) {
+			} else if (fachnote) {
 				await handle_promise(
 					api.edit_note(
-						note.id,
+						fachnote.note_id,
 						new_note.fach_id,
 						new_note.schriftlich,
 						new_note.muendlich,
