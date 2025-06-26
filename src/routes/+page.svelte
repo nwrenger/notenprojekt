@@ -58,7 +58,7 @@
 				{#await handle_promise(future_zeitraeume) then zeitraeumeUnsortiert}
 					{@const zeitraeume = zeitraeumeUnsortiert.toSorted(
 						(a, b) =>
-							b.quartal + 2 * b.stufe - (a.quartal + 2 * a.stufe),
+							a.quartal + 2 * a.stufe - (b.quartal + 2 * b.stufe),
 					)}
 					{#each zeitraeume as zeitraum}
 						<Tabs.Control
@@ -114,10 +114,10 @@
 							{#if future_fachnoten}
 								{#await handle_promise(future_fachnoten) then fachnotenUnsortiert}
 									{@const fachnoten =
-										fachnotenUnsortiert.toSorted((a, b) =>
-											(b?.insgesamt || 0)``(
-												a?.insgesamt || 0,
-											),
+										fachnotenUnsortiert.toSorted(
+											(a, b) =>
+												(b?.insgesamt || 0) -
+												(a?.insgesamt || 0),
 										)}
 									<ul class="list-inside list-none px-2">
 										{#each fachnoten as fachnote}
