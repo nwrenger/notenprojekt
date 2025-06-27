@@ -28,7 +28,7 @@
 	open={openState}
 	onOpenChange={(e) => (openState = e.open)}
 	triggerBase="flex items-center"
-	contentBase="card bg-surface-100-900 p-4 space-y-4 shadow-xl min-w-md"
+	contentBase="card bg-surface-100-900 p-4 space-y-4 shadow-xl min-w-md max-w-md"
 	backdropClasses="backdrop-blur-sm"
 >
 	{#snippet trigger()}

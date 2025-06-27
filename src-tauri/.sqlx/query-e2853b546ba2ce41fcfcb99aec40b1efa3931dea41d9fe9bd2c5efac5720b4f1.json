@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "UPDATE Note SET schriftlich = ?1, muendlich = ?2, gewichtung = ?3, insgesamt = ?4 WHERE id = ?5",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 5
+    },
+    "nullable": []
+  },
+  "hash": "e2853b546ba2ce41fcfcb99aec40b1efa3931dea41d9fe9bd2c5efac5720b4f1"
+}

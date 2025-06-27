@@ -7,21 +7,22 @@
 
 	interface Props {
 		zeitraum_id: number;
-		fachnote?: api.Fachnote;
+		note?: api.Note;
+		future_noten?: Promise<api.Note[]>;
 		faecher: api.Fach[];
 		update: () => void;
 	}
 
-	let { zeitraum_id, fachnote, faecher, update }: Props = $props();
+	let { zeitraum_id, future_noten, note, faecher, update }: Props = $props();
 
 	let new_note = $state({
-		fach_id: fachnote?.fach_id,
-		schriftlich: fachnote?.schriftlich,
-		muendlich: fachnote?.muendlich,
-		gewichtung: fachnote?.gewichtung,
+		fach_id: note?.fach_id,
+		schriftlich: note?.schriftlich,
+		muendlich: note?.muendlich,
+		gewichtung: note?.gewichtung,
 	});
-	$inspect(new_note);
-	let is_new = $derived(!fachnote);
+	// $inspect(new_note);
+	let is_new = $derived(!note);
 	let valid = $derived(allDefined(new_note, ["schriftlich", "muendlich"]));
 	let openState = $state(false);
 
@@ -31,31 +32,31 @@
 		// reset
 		new_note = {
 			fach_id: undefined,
-			schriftlich: fachnote?.schriftlich,
-			muendlich: fachnote?.muendlich,
-			gewichtung: fachnote?.gewichtung,
+			schriftlich: note?.schriftlich,
+			muendlich: note?.muendlich,
+			gewichtung: note?.gewichtung,
 		};
 	}
 
 	async function apply() {
-		if (new_note.fach_id && new_note.gewichtung) {
+		if (allDefined(new_note, ["schriftlich", "muendlich"])) {
 			if (is_new) {
 				await handle_promise(
 					api.add_note(
 						zeitraum_id,
 						new_note.fach_id,
-						new_note.schriftlich,
 						new_note.muendlich,
+						new_note.schriftlich,
 						new_note.gewichtung,
 					),
 				);
-			} else if (fachnote) {
+			} else if (note) {
 				await handle_promise(
 					api.edit_note(
-						fachnote.note_id,
+						note.id,
 						new_note.fach_id,
-						new_note.schriftlich,
 						new_note.muendlich,
+						new_note.schriftlich,
 						new_note.gewichtung,
 					),
 				);
@@ -65,6 +66,19 @@
 			modalClose();
 		}
 	}
+
+	async function initNewNoteFach() {
+		if (!future_noten) return;
+
+		const existing: api.Note[] = await handle_promise(future_noten);
+		const usedIds = new Set(existing.map((n) => n.fach_id));
+		const next = faecher.find((f) => !usedIds.has(f.id));
+		new_note.fach_id = next?.id ?? faecher[0]?.id;
+	}
+
+	$effect(() => {
+		if (is_new && openState) initNewNoteFach();
+	});
 </script>
 
 <Modal
@@ -100,9 +114,12 @@
 				<span class="label-text">Fach</span>
 				<select class="select" bind:value={new_note.fach_id}>
 					{#each faecher as fach}
-						<option value={fach.id}
-							>{fach.name} - {fach.lehrer}</option
-						>
+						<option value={fach.id}>
+							{fach.name}
+							{#if fach.lehrer}
+								- {fach.lehrer}
+							{/if}
+						</option>
 					{/each}
 				</select>
 			</label>
@@ -132,7 +149,7 @@
 				<span class="label-text">Gewichtung</span>
 				<select class="select" bind:value={new_note.gewichtung}>
 					<option value={0.5}>50/50</option>
-					<option value={0.6}>60/40</option>
+					<option selected value={0.6}>60/40</option>
 					<option value={0.7}>70/30</option>
 				</select>
 			</label>

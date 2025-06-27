@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "DELETE FROM ZeitraumHatNote WHERE note_id = ?1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": []
+  },
+  "hash": "176e73bd9a63694e2d9c3f3027c0e42adce3a021ed7c57e465366a2d686856fc"
+}

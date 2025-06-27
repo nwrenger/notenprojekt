@@ -6,7 +6,7 @@ use std::fs;
 use error::{Error, Result};
 use tauri::{async_runtime::RwLock, Manager, State};
 
-use crate::db::{Database, Fach, Fachnote, Zeitraum};
+use crate::db::{Database, Fach, Note, Zeitraum};
 
 #[tauri::command]
 async fn get_zeitraeume(db: State<'_, RwLock<Database>>) -> Result<Vec<Zeitraum>> {
@@ -19,14 +19,8 @@ async fn get_faecher(db: State<'_, RwLock<Database>>) -> Result<Vec<Fach>> {
 }
 
 #[tauri::command]
-async fn get_fachnoten_by_zeitraum(
-    zeitraum_id: i64,
-    db: State<'_, RwLock<Database>>,
-) -> Result<Vec<Fachnote>> {
-    db.write()
-        .await
-        .get_fachnoten_by_zeitraum(zeitraum_id)
-        .await
+async fn get_noten(zeitraum_id: i64, db: State<'_, RwLock<Database>>) -> Result<Vec<Note>> {
+    db.write().await.get_noten(zeitraum_id).await
 }
 
 #[tauri::command]
@@ -35,7 +29,11 @@ async fn add_zeitraum(quartal: i64, stufe: i64, db: State<'_, RwLock<Database>>)
 }
 
 #[tauri::command]
-async fn add_fach(name: String, lehrer: String, db: State<'_, RwLock<Database>>) -> Result<()> {
+async fn add_fach(
+    name: String,
+    lehrer: Option<String>,
+    db: State<'_, RwLock<Database>>,
+) -> Result<()> {
     db.write().await.add_fach(name, lehrer).await
 }
 
@@ -68,7 +66,7 @@ async fn edit_zeitraum(
 async fn edit_fach(
     id: i64,
     name: String,
-    lehrer: String,
+    lehrer: Option<String>,
     db: State<'_, RwLock<Database>>,
 ) -> Result<()> {
     db.write().await.edit_fach(id, name, lehrer).await
@@ -129,7 +127,7 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             get_zeitraeume,
             get_faecher,
-            get_fachnoten_by_zeitraum,
+            get_noten,
             add_zeitraum,
             add_fach,
             add_note,

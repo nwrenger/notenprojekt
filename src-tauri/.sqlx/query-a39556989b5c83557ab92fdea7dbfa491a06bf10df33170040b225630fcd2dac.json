@@ -1,0 +1,50 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT Note.id, Fach.id as fach_id, Note.muendlich, Note.schriftlich, Note.gewichtung, Note.insgesamt\n   FROM ZeitraumHatNote\n   JOIN Note ON Note.id = ZeitraumHatNote.note_id\n   JOIN Fach ON Fach.id = ZeitraumHatNote.fach_id\n   WHERE ZeitraumHatNote.zeitraum_id = ?1",
+  "describe": {
+    "columns": [
+      {
+        "name": "id",
+        "ordinal": 0,
+        "type_info": "Integer"
+      },
+      {
+        "name": "fach_id",
+        "ordinal": 1,
+        "type_info": "Integer"
+      },
+      {
+        "name": "muendlich",
+        "ordinal": 2,
+        "type_info": "Integer"
+      },
+      {
+        "name": "schriftlich",
+        "ordinal": 3,
+        "type_info": "Integer"
+      },
+      {
+        "name": "gewichtung",
+        "ordinal": 4,
+        "type_info": "Float"
+      },
+      {
+        "name": "insgesamt",
+        "ordinal": 5,
+        "type_info": "Float"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false,
+      false,
+      true,
+      true,
+      false,
+      true
+    ]
+  },
+  "hash": "a39556989b5c83557ab92fdea7dbfa491a06bf10df33170040b225630fcd2dac"
+}

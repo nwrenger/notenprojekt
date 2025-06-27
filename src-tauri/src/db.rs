@@ -4,43 +4,33 @@ use crate::error::Result;
 use serde::{Deserialize, Serialize};
 use sqlx::{query, query_as, Connection, SqliteConnection};
 
+/// The Zeitraum table
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Zeitraum {
+    id: i64,
+    quartal: i64,
+    stufe: i64,
+}
+
 /// The Fach table
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Fach {
-    pub id: i64,
-    pub name: String,
-    pub lehrer: String,
+    id: i64,
+    name: String,
+    lehrer: Option<String>,
 }
 
-/// Just for markup usage, the Note table
+/// The Note table (with one exception, the `fach_id` field)
 #[derive(Debug, Serialize, Deserialize)]
-struct _Note {
+pub struct Note {
     id: i64,
+    /// This field does not exist on the note table.
+    /// It's from joining via the relations-table and needed for referencing related subject information.
+    fach_id: i64,
     muendlich: Option<i64>,
     schriftlich: Option<i64>,
     gewichtung: f64,
     insgesamt: Option<f64>,
-}
-
-/// An Output set of Note and Fach combined
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Fachnote {
-    pub fach_id: i64,
-    pub name: String,
-    pub lehrer: String,
-    pub note_id: i64,
-    pub muendlich: Option<i64>,
-    pub schriftlich: Option<i64>,
-    pub gewichtung: f64,
-    pub insgesamt: Option<f64>,
-}
-
-/// The Zeitraum table
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Zeitraum {
-    pub id: i64,
-    pub quartal: i64,
-    pub stufe: i64,
 }
 
 // Helper struct
@@ -67,7 +57,7 @@ impl Database {
         CREATE TABLE IF NOT EXISTS "Fach" (
            	"id"	INTEGER NOT NULL,
            	"name"	TEXT NOT NULL,
-           	"lehrer"	TEXT NOT NULL,
+           	"lehrer"	TEXT,
            	PRIMARY KEY("id" AUTOINCREMENT)
         );
         CREATE TABLE IF NOT EXISTS "Note" (
@@ -111,8 +101,8 @@ impl Database {
             .await?)
     }
 
-    pub async fn get_fachnoten_by_zeitraum(&mut self, zeitraum_id: i64) -> Result<Vec<Fachnote>> {
-        Ok(query_as!(Fachnote, "SELECT Fach.id as fach_id, Fach.name, Fach.lehrer, Note.id as note_id, Note.schriftlich, Note.muendlich, Note.gewichtung, Note.insgesamt
+    pub async fn get_noten(&mut self, zeitraum_id: i64) -> Result<Vec<Note>> {
+        Ok(query_as!(Note, "SELECT Note.id, Fach.id as fach_id, Note.muendlich, Note.schriftlich, Note.gewichtung, Note.insgesamt
    FROM ZeitraumHatNote
    JOIN Note ON Note.id = ZeitraumHatNote.note_id
    JOIN Fach ON Fach.id = ZeitraumHatNote.fach_id
@@ -133,7 +123,7 @@ impl Database {
         Ok(())
     }
 
-    pub async fn add_fach(&mut self, name: String, lehrer: String) -> Result<()> {
+    pub async fn add_fach(&mut self, name: String, lehrer: Option<String>) -> Result<()> {
         query!(
             "INSERT INTO Fach (name, lehrer) VALUES (?1, ?2)",
             name,
@@ -196,7 +186,7 @@ impl Database {
         Ok(())
     }
 
-    pub async fn edit_fach(&mut self, id: i64, name: String, lehrer: String) -> Result<()> {
+    pub async fn edit_fach(&mut self, id: i64, name: String, lehrer: Option<String>) -> Result<()> {
         query!(
             "UPDATE Fach SET name = ?1, lehrer = ?2 WHERE id = ?3",
             name,

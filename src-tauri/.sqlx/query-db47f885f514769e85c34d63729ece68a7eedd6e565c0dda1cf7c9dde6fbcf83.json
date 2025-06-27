@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO Fach (name, lehrer) VALUES (?1, ?2)",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": []
+  },
+  "hash": "db47f885f514769e85c34d63729ece68a7eedd6e565c0dda1cf7c9dde6fbcf83"
+}

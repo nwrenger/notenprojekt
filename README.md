@@ -9,9 +9,9 @@ SVELTTASTISCH!!!
   - [ ] How to use/Showcase
   - [ ] How to install
   - [x] TODOS
-- [ ] Editing tab
-  - [ ] Editing "Zeiträume" (UI)
-  - [ ] Editing "Fächer" (UI)
+- [x] Editing tab
+  - [x] Editing "Zeiträume" (UI)
+  - [x] Editing "Fächer" (UI)
 - [ ] Analysis tab
   - [ ] UI
   - [ ] Backend functions

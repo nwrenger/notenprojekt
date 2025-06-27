@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO Note (schriftlich, muendlich, gewichtung, insgesamt)\n             VALUES (?1, ?2, ?3, ?4)",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 4
+    },
+    "nullable": []
+  },
+  "hash": "c88eab722918db96fc53f426d380213b6b591ad679e42a67d59e24a9979ac54a"
+}

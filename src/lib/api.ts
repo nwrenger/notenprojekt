@@ -7,36 +7,25 @@ namespace api {
 		| { kind: "Database"; value: string }
 		| { kind: "FileSystem"; value: string };
 
-	export interface Fach {
-		id: number;
-		name: string;
-		lehrer: string;
-	}
-
-	// Just for markup usage
-	interface _Note {
-		id: number;
-		muendlich: number | undefined;
-		schriftlich: number | undefined;
-		gewichtung: number;
-		insgesamt: number | undefined;
-	}
-
-	export interface Fachnote {
-		fach_id: number;
-		name: string;
-		lehrer: string;
-		note_id: number;
-		muendlich: number | undefined;
-		schriftlich: number | undefined;
-		gewichtung: number;
-		insgesamt: number | undefined;
-	}
-
 	export interface Zeitraum {
 		id: number;
 		quartal: number;
 		stufe: number;
+	}
+
+	export interface Fach {
+		id: number;
+		name: string;
+		lehrer: string | undefined;
+	}
+
+	export interface Note {
+		id: number;
+		fach_id: number;
+		muendlich: number | undefined;
+		schriftlich: number | undefined;
+		gewichtung: number;
+		insgesamt: number | undefined;
 	}
 
 	export async function get_zeitraeume(): Promise<Zeitraum[]> {
@@ -48,10 +37,8 @@ namespace api {
 	}
 
 	// Nils stinkt
-	export async function get_fachnoten_by_zeitraum(
-		zeitraum_id: number,
-	): Promise<Fachnote[]> {
-		return await invoke("get_fachnoten_by_zeitraum", {
+	export async function get_noten(zeitraum_id: number): Promise<Note[]> {
+		return await invoke("get_noten", {
 			zeitraumId: zeitraum_id,
 		});
 	}
@@ -64,8 +51,8 @@ namespace api {
 	}
 
 	export async function add_fach(
-		name: number,
-		lehrer: number,
+		name: string,
+		lehrer: string | undefined,
 	): Promise<void> {
 		return await invoke("add_fach", { name: name, lehrer: lehrer });
 	}
@@ -100,8 +87,8 @@ namespace api {
 
 	export async function edit_fach(
 		id: number,
-		name: number,
-		lehrer: number,
+		name: string,
+		lehrer: string | undefined,
 	): Promise<void> {
 		return await invoke("edit_fach", {
 			id: id,

@@ -4,6 +4,8 @@
 	import {
 		ChartNoAxesCombined,
 		FileQuestionMark,
+		Pencil,
+		Plus,
 		Settings2,
 		TriangleAlert,
 	} from "lucide-svelte";
@@ -11,32 +13,32 @@
 	import DeleteModal from "./DeleteModal.svelte";
 	import { handle_promise } from "$lib/toaster";
 	import { selected_tab } from "$lib/store";
+	import ZeitraumModel from "./ZeitraumModel.svelte";
+	import FachModel from "./FachModel.svelte";
 
 	let future_zeitraeume: undefined | Promise<api.Zeitraum[]> = $state();
-	let future_fachnoten: undefined | Promise<api.Fachnote[]> = $state();
+	let future_noten: undefined | Promise<api.Note[]> = $state();
 	// make sure changes of $selected_tab reloads future_fachnoten
-	$effect(loadFachnoten);
+	$effect(loadNoten);
 	let future_faecher: undefined | Promise<api.Fach[]> = $state();
 
 	// Once initially
 	loadAll();
 	function loadAll() {
 		loadZeitraeume();
-		loadFachnoten();
+		loadNoten();
 		loadFaecher();
 	}
 	function loadZeitraeume() {
 		future_zeitraeume = api.get_zeitraeume();
 	}
-	function loadFachnoten() {
+	function loadNoten() {
 		if (
 			$selected_tab &&
 			$selected_tab != "edit" &&
 			$selected_tab != "analysis"
 		)
-			future_fachnoten = api.get_fachnoten_by_zeitraum(
-				parseInt($selected_tab),
-			);
+			future_noten = api.get_noten(parseInt($selected_tab));
 	}
 	function loadFaecher() {
 		future_faecher = api.get_faecher();
@@ -49,16 +51,21 @@
 		onValueChange={(e) => ($selected_tab = e.value)}
 		fluid
 		composite
-		listClasses="preset-tonal pt-2 px-2 rounded-md whitespace-nowrap overflow-x-auto overflow-y-clip"
-		contentClasses="overflow-y-scroll h-[calc(100%-61px)]"
+		listClasses="preset-tonal pt-2 px-2 rounded-md whitespace-nowrap"
+		contentClasses="h-[calc(100%-61px)]"
 		classes="h-full"
 	>
 		{#snippet list()}
 			{#if future_zeitraeume}
 				{#await handle_promise(future_zeitraeume) then zeitraeumeUnsortiert}
 					{@const zeitraeume = zeitraeumeUnsortiert.toSorted(
-						(a, b) =>
-							a.quartal + 2 * a.stufe - (b.quartal + 2 * b.stufe),
+						(a, b) => {
+							if (a.stufe == b.stufe) {
+								return a.quartal - b.quartal;
+							} else {
+								return a.stufe - b.stufe;
+							}
+						},
 					)}
 					{#each zeitraeume as zeitraum}
 						<Tabs.Control
@@ -101,36 +108,45 @@
 			{#if future_zeitraeume && future_faecher}
 				{#await handle_promise(Promise.all( [future_zeitraeume, future_faecher], )) then [zeitraeume, faecher]}
 					{#each zeitraeume as zeitraum}
-						<Tabs.Panel value={zeitraum.id.toString()}>
-							<div
-								class="fixed bottom-0 left-0 z-50 p-4 backdrop-blur-xs rounded-tr-md"
-							>
+						<Tabs.Panel
+							classes="h-full"
+							value={zeitraum.id.toString()}
+						>
+							<div class="fixed bottom-4 left-4 z-40">
 								<NoteModal
 									zeitraum_id={zeitraum.id}
+									{future_noten}
 									{faecher}
-									update={loadFachnoten}
+									update={loadNoten}
 								/>
 							</div>
-							{#if future_fachnoten}
-								{#await handle_promise(future_fachnoten) then fachnotenUnsortiert}
-									{@const fachnoten =
-										fachnotenUnsortiert.toSorted(
-											(a, b) =>
-												(b?.insgesamt || 0) -
-												(a?.insgesamt || 0),
-										)}
-									<ul class="list-inside list-none px-2">
-										{#each fachnoten as fachnote}
+							{#if future_noten}
+								{#await handle_promise(future_noten) then notenUsortiert}
+									{@const noten = notenUsortiert.toSorted(
+										(a, b) =>
+											(b?.insgesamt || 0) -
+											(a?.insgesamt || 0),
+									)}
+									<ul
+										class="list-inside list-none px-2 overflow-y-scroll h-full"
+									>
+										{#each noten as note}
+											{@const fach = faecher.find(
+												(f) => f.id == note.fach_id,
+											)}
 											<li
 												class="flex justify-between py-3 border-b-[1px] border-surface-500 last:border-b-0"
 											>
 												<span
 													class="font-bold flex items-center"
+													title="{fach?.name}{fach?.lehrer
+														? ` - ${fach?.lehrer}`
+														: ''}"
 												>
-													{fachnote.name}
+													{fach?.name}
 													<span
 														class="ps-2 opacity-60 text-xs"
-														>{fachnote.lehrer}</span
+														>{fach?.lehrer}</span
 													>
 												</span>
 												<div
@@ -139,8 +155,8 @@
 													<span
 														class="badge preset-filled-primary-500 h6 h-[39px]"
 													>
-														{#if fachnote.insgesamt}
-															{fachnote.insgesamt.toFixed(
+														{#if note.insgesamt}
+															{note.insgesamt.toFixed(
 																1,
 															)}
 														{:else}
@@ -155,17 +171,17 @@
 													>
 														<NoteModal
 															zeitraum_id={zeitraum.id}
-															{fachnote}
+															{note}
 															{faecher}
-															update={loadFachnoten}
+															update={loadNoten}
 														/>
 														<DeleteModal
 															message="Wollen Sie die Note unwiederruflich löschen?"
 															del={() =>
 																api.delete_note(
-																	fachnote.note_id,
+																	note.id,
 																)}
-															update={loadFachnoten}
+															update={loadNoten}
 														/>
 													</div>
 												</div>
@@ -199,17 +215,104 @@
 					</div>
 				</div>
 			</Tabs.Panel>
-			<Tabs.Panel value="edit">
-				<div
-					class="card preset-outlined-warning-500 grid items-center gap-4 p-4 grid-cols-[auto_1fr_auto] mx-2"
-				>
-					<TriangleAlert />
-					<div>
-						<h6 class="h6 font-bold">Achtung</h6>
-						<p class="opacity-80">
-							Dieser Bereich ist noch in der Entwicklung und noch
-							nicht fertig!
-						</p>
+			<Tabs.Panel classes="h-full" value="edit">
+				<div class="px-2 grid grid-cols-2 gap-4 w-full h-full">
+					<div class="space-y-2 h-full min-h-0">
+						<div class="flex items-center justify-between">
+							<h6 class="h6 font-bold">Zeiträume</h6>
+							<ZeitraumModel update={loadZeitraeume} />
+						</div>
+
+						<div class="h-[calc(100%-41px)] overflow-y-auto">
+							<ul
+								class="list-inside list-none overflow-y-scroll h-full"
+							>
+								{#if future_zeitraeume}
+									{#await future_zeitraeume then zeitraeume}
+										{#each zeitraeume as zeitraum}
+											<li
+												class="flex justify-between py-3 border-b-[1px] border-surface-500 last:border-b-0"
+											>
+												<span
+													class="font-bold flex items-center"
+												>
+													{zeitraum.stufe}.{zeitraum.quartal}
+												</span>
+												<div
+													class="flex justify-center items-center space-x-1"
+												>
+													<ZeitraumModel
+														{zeitraum}
+														update={loadZeitraeume}
+													/>
+
+													<DeleteModal
+														message="Wollen Sie den Zeitraum und alle jeweils dazu eingetragenen Noten unwiederruflich löschen?"
+														del={() =>
+															api.delete_zeitraum(
+																zeitraum.id,
+															)}
+														update={loadZeitraeume}
+													/>
+												</div>
+											</li>
+										{/each}
+									{/await}
+								{/if}
+							</ul>
+						</div>
+					</div>
+
+					<div class="space-y-2 h-full min-h-0">
+						<div class="space-y-2 h-full min-h-0">
+							<div class="flex items-center justify-between">
+								<h6 class="h6 font-bold">Fächer</h6>
+								<FachModel update={loadFaecher} />
+							</div>
+
+							<div class="h-[calc(100%-41px)] overflow-y-auto">
+								<ul
+									class="list-inside list-none overflow-y-scroll h-full"
+								>
+									{#if future_faecher}
+										{#await future_faecher then faecher}
+											{#each faecher as fach}
+												<li
+													class="flex justify-between py-3 border-b-[1px] border-surface-500 last:border-b-0"
+												>
+													<span
+														class="font-bold flex items-center"
+													>
+														{fach.name}
+														<span
+															class="ps-2 opacity-60 text-xs"
+															>{fach.lehrer}</span
+														>
+													</span>
+													<div
+														class="flex justify-center items-center space-x-1"
+													>
+														<FachModel
+															{fach}
+															update={loadFaecher}
+														/>
+
+														<DeleteModal
+															message="Wollen Sie das Fach und alle jeweils dazu eingetragenen Noten unwiederruflich löschen?"
+															del={() =>
+																api.delete_fach(
+																	fach.id,
+																)}
+															update={loadFaecher}
+														/>
+													</div>
+												</li>
+											{/each}
+										{/await}
+									{/if}
+								</ul>
+							</div>
+						</div>
 					</div>
 				</div>
 			</Tabs.Panel>

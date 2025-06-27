@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "UPDATE ZeitraumHatNote SET fach_id = ?1 WHERE note_id = ?2",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": []
+  },
+  "hash": "c9be45ef402e8119a6267aeb034d99130a0c1416a835fcd8a03f77f58d124229"
+}

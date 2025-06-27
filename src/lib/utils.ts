@@ -1,9 +1,16 @@
-export function allDefined<T extends object>(
+type AllDefinedExcept<T extends Record<string, any>, K extends keyof T> = {
+	[P in Exclude<keyof T, K>]-?: NonNullable<T[P]>;
+} & Pick<T, K>;
+
+export function allDefined<T extends Record<string, any>, K extends keyof T>(
 	obj: T,
-	skipKeys: (keyof T)[] = [],
-): boolean {
-	const keys = Object.keys(obj).filter(
-		(k) => !skipKeys.includes(k as keyof T),
+	skipKeys: K[],
+): obj is T & AllDefinedExcept<T, K> {
+	const allKeys = Object.keys(obj) as Array<keyof T>;
+	const keysToCheck = allKeys.filter(
+		(key): key is Exclude<keyof T, K> => !skipKeys.includes(key as K),
 	);
-	return (keys as Array<keyof T>).every((key) => obj[key] !== undefined);
+	return keysToCheck.every(
+		(key) => obj[key] !== undefined && obj[key] !== null && obj[key],
+	);
 }

@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "DELETE FROM ZeitraumHatNote WHERE fach_id = ?1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": []
+  },
+  "hash": "ef661afd5d584708781e90430456e934df2ede8ab31c004097b9154f8ab98b2a"
+}

@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT note_id FROM ZeitraumHatNote WHERE fach_id = ?1",
+  "describe": {
+    "columns": [
+      {
+        "name": "note_id",
+        "ordinal": 0,
+        "type_info": "Integer"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "c9ee882f896f54b7d8eabb42d0d63843f0665f0c244f32beae49ae9db5ecfa2e"
+}

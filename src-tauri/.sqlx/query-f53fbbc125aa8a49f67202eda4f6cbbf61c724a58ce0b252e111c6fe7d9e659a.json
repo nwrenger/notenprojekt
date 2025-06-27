@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "UPDATE Fach SET name = ?1, lehrer = ?2 WHERE id = ?3",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 3
+    },
+    "nullable": []
+  },
+  "hash": "f53fbbc125aa8a49f67202eda4f6cbbf61c724a58ce0b252e111c6fe7d9e659a"
+}

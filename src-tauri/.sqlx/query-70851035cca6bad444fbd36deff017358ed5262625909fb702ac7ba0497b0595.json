@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "UPDATE Zeitraum SET quartal = ?1, stufe = ?2 WHERE id = ?3",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 3
+    },
+    "nullable": []
+  },
+  "hash": "70851035cca6bad444fbd36deff017358ed5262625909fb702ac7ba0497b0595"
+}

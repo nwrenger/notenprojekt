@@ -1,0 +1,32 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT id, quartal, stufe FROM Zeitraum",
+  "describe": {
+    "columns": [
+      {
+        "name": "id",
+        "ordinal": 0,
+        "type_info": "Integer"
+      },
+      {
+        "name": "quartal",
+        "ordinal": 1,
+        "type_info": "Integer"
+      },
+      {
+        "name": "stufe",
+        "ordinal": 2,
+        "type_info": "Integer"
+      }
+    ],
+    "parameters": {
+      "Right": 0
+    },
+    "nullable": [
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "0a6e3749569e8a51f27c3df5b2cf251e56dd4cc8278dafb3061d3e5b2c7d77e2"
+}

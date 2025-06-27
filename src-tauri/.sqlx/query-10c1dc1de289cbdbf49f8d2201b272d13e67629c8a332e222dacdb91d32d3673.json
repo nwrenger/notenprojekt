@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO Zeitraum (quartal, stufe) VALUES (?1, ?2)",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 2
+    },
+    "nullable": []
+  },
+  "hash": "10c1dc1de289cbdbf49f8d2201b272d13e67629c8a332e222dacdb91d32d3673"
+}

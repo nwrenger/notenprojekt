@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "\n        CREATE TABLE IF NOT EXISTS \"Fach\" (\n           \t\"id\"\tINTEGER NOT NULL,\n           \t\"name\"\tTEXT NOT NULL,\n           \t\"lehrer\"\tTEXT,\n           \tPRIMARY KEY(\"id\" AUTOINCREMENT)\n        );\n        CREATE TABLE IF NOT EXISTS \"Note\" (\n           \t\"id\"\tINTEGER NOT NULL,\n           \t\"muendlich\"\tINTEGER,\n           \t\"schriftlich\"\tINTEGER,\n           \t\"gewichtung\"\tINTEGER NOT NULL,\n           \t\"insgesamt\"\tINTEGER,\n       \tPRIMARY KEY(\"id\" AUTOINCREMENT)\n        );\n            CREATE TABLE IF NOT EXISTS \"Zeitraum\" (\n           \t\"id\"\tINTEGER NOT NULL,\n           \t\"quartal\" INTEGER NOT NULL,\n           \t\"stufe\" INTEGER NOT NULL,\n           \tPRIMARY KEY(\"id\" AUTOINCREMENT)\n        );\n            CREATE TABLE IF NOT EXISTS \"ZeitraumHatNote\" (\n           \t\"zeitraum_id\"\tINTEGER NOT NULL,\n           \t\"fach_id\"\tINTEGER NOT NULL,\n           \t\"note_id\"\tINTEGER NOT NULL,\n           \tPRIMARY KEY(\"zeitraum_id\",\"fach_id\",\"note_id\")\n        );",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 0
+    },
+    "nullable": []
+  },
+  "hash": "2717cc7bff4b47efe5579031fd85e3ad0037f8729add6adaac1df00c830541f2"
+}
