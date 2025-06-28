@@ -99,7 +99,7 @@
 		</article>
 		<footer class="flex justify-end gap-4">
 			<button type="button" class="btn preset-tonal" onclick={modalClose}
-				>Cancel</button
+				>Abbrechen</button
 			>
 			<button
 				type="button"
